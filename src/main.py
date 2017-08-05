@@ -75,5 +75,9 @@ def message_recieved(chat, message):
             if replyed_message.forward_from == None:
                 return
             else:
-                bot.chat(config.ADMINS).send("✅ Risposta inviata")
-                bot.chat(replyed_message.forward_from.id).send("<b>Admin: </b>" + message.text, syntax = 'HTML')
+                if replyed_message.sender.id == config.BOT_ID:
+                    bot.chat(config.ADMINS).send("✅ Risposta inviata")
+                    bot.chat(replyed_message.forward_from.id).send("<b>Admin: </b>" + message.text, syntax = 'HTML')
+                else:
+                    return
+
